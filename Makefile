@@ -24,11 +24,7 @@ CXX = g++
 CXXFLAGS = -g -Wall
 LDFLAGS = -L
 
-TARGET = CPP_Sand
-
-AUTHOR = Eduardo Alvarez
-VERSION = 1.0.0
-GIT_REPO = https://github.com/ed-alvarez/makefile-tmpl
+TARGET = My_Project_bin
 
 OBJDIR = ./obj
 SRCDIR = ./src

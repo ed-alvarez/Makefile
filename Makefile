@@ -21,19 +21,18 @@
 ## 
 
 CXX = g++
-CXXFLAGS = -g -Wall
-LDFLAGS = -L
+CXXFLAGS = -std=c++20 -g -Wall
+LDFLAGS = # My libs
 
-TARGET = My_Project_bin
+TARGET = Executable_Name
 
-OBJDIR = ./obj
-SRCDIR = ./src
-INCDIR = ./inc
+OBJDIR = obj
+SRCDIR = src
+INCDIRS = inc
 
-BUILDDIR = ./build
+BUILDDIR = build
 
-LDFLAGS += $(INCDIR)
-
+INC=$(INCDIRS:%=-I%)
 SRC := $(shell find $(SRCDIR) -name "*.cpp")
 OBJ := $(SRC:%.cpp=$(OBJDIR)/%.o)
 
@@ -55,13 +54,13 @@ $(TARGET): $(OBJ)
 	$(call log_cli,DBUG, "LINKING EXECUTABLE $(TARGET)")
 
 	@mkdir -p $(BUILDDIR)
-	@$(CXX) $^ $(LDFLAGS) -o $(BUILDDIR)/$(TARGET)
+	$(CXX) $^ $(LDFLAGS) -o $(BUILDDIR)/$(TARGET)
 
 $(OBJDIR)/%.o: %.cpp
 	$(call log_cli,DBUG, "COMPILING SOURCE $< INTO OBJECT $@")
 
 	@mkdir -p $(@D)
-	@$(CXX) -c $(CXXFLAGS) $< -o $@
+	$(CXX) -c $(CXXFLAGS) -I./inc $< -o $@
 
 help:	## Show available commands.
 	@sed -ne '/@sed/!s/## //p' $(MAKEFILE_LIST)
